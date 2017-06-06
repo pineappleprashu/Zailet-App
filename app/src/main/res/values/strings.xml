@@ -19,6 +19,8 @@
     <!-- Title for the activity to add a new pet [CHAR LIMIT=20] -->
     <string name="blogs_activity_title">Blog</string>
 
+    <!-- Text to display in the list when there are no earthquakes [CHAR LIMIT=NONE] -->
+    <string name="no_topics">No topics found.</string>
 
 </resources>
 

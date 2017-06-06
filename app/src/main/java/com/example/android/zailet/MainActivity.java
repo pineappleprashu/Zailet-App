@@ -22,10 +22,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //comment
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         if(isNetworkAvailable()) {
             Intent intent = new Intent(MainActivity.this, TopicsActivity.class);
+            finish();
             startActivity(intent);
         }
 
@@ -60,7 +62,5 @@ public class MainActivity extends AppCompatActivity {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
-    @Override
-    public void onBackPressed() {
-    }
+
 }
