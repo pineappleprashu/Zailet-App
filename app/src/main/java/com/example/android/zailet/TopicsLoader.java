@@ -42,7 +42,7 @@ public class TopicsLoader extends AsyncTaskLoader<List<Topics>> {
         }
 
         // Perform the network request, parse the response, and extract a list of earthquakes.
-        List<Topics> earthquakes = QueryUtils.fetchEarthquakeData(mUrl);
+        List<Topics> earthquakes = QueryUtils.fetchTopicData(mUrl);
         return earthquakes;
     }
 }

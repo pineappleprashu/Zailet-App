@@ -41,7 +41,7 @@ public class TopicsActivity extends AppCompatActivity
     private TextView mEmptyStateTextView;
 
     private static final String TOPIC_REQUEST_URL =
-            "http://zailet.com/zailet_internship_assignment/get_data.php?get_topics=1";
+            "https://zailet.com/zailet_internship_assignment/get_data.php?get_topics=1";
 
     private static final int TOPIC_LOADER_ID = 1;
 
