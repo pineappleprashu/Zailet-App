@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -19,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -35,13 +37,15 @@ import static android.media.CamcorderProfile.get;
 public class TopicsActivity extends AppCompatActivity
         implements LoaderCallbacks<List<Topics>>{
 
+    private ArrayList<Integer> mTopicsSelected = new ArrayList<Integer>();
+
     private static final String LOG_TAG = TopicsActivity.class.getName();
 
     private TopicsAdapter mAdapter;
     private TextView mEmptyStateTextView;
 
     private static final String TOPIC_REQUEST_URL =
-            "https://zailet.com/zailet_internship_assignment/get_data.php?get_topics=1";
+            "http://zailet.com/zailet_internship_assignment/get_data.php?get_topics=1";
 
     private static final int TOPIC_LOADER_ID = 1;
 
@@ -63,6 +67,19 @@ public class TopicsActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
+                Integer pos = new Integer(position);
+                if(mTopicsSelected.contains(pos)) {
+                    mTopicsSelected.remove(pos); // remove item from list
+                    // update view (v) state here
+                    // eg: remove highlight
+                    view.setBackgroundColor(Color.parseColor("#FFFFFF")); // change to white
+                }
+                else {
+                    mTopicsSelected.add(pos); // add item to list
+                    // update view (v) state here
+                    // eg: add highlight
+                    view.setBackgroundColor(Color.parseColor("#00FFFF")); // change to cyan
+                }
             }
         });
 
@@ -116,8 +133,15 @@ public class TopicsActivity extends AppCompatActivity
 
 
     private void proceed (){
-        Intent intent = new Intent(TopicsActivity.this, BlogsActivity.class);
-        startActivity(intent);
+        if(mTopicsSelected.size() >= 10)
+        {
+            Intent intent = new Intent(TopicsActivity.this, BlogsActivity.class);
+            startActivity(intent);
+        }
+        else {
+            Toast.makeText(this, "Select atleast 10 to proceed", Toast.LENGTH_LONG).show();
+        }
+
     }
 
     @Override
@@ -135,8 +159,6 @@ public class TopicsActivity extends AppCompatActivity
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
                 proceed();
-                // Exit activity
-                finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);

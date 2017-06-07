@@ -49,4 +49,5 @@ public class TopicsAdapter extends ArrayAdapter<Topics> {
 
         return gridItemView;
     }
+
 }

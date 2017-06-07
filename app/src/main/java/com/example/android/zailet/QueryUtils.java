@@ -74,8 +74,8 @@ public class QueryUtils {
             InputStream inputStream = null;
             try {
                 urlConnection = (HttpURLConnection) url.openConnection();
-//                urlConnection.setReadTimeout(10000 /* milliseconds */);
-//                urlConnection.setConnectTimeout(15000 /* milliseconds */);
+                urlConnection.setReadTimeout(10000 /* milliseconds */);
+                urlConnection.setConnectTimeout(15000 /* milliseconds */);
                 urlConnection.setRequestMethod("GET");
                 urlConnection.connect();
 
@@ -120,9 +120,9 @@ public class QueryUtils {
         return output.toString();
     }
 
-    private static List<Topics> extractFeatureFromJson(String earthquakeJSON) {
+    private static List<Topics> extractFeatureFromJson(String topicJSON) {
         // If the JSON string is empty or null, then return early.
-        if (TextUtils.isEmpty(earthquakeJSON)) {
+        if (TextUtils.isEmpty(topicJSON)) {
             return null;
         }
 
@@ -132,20 +132,20 @@ public class QueryUtils {
         try {
 
 
-            JSONObject baseJsonResponse = new JSONObject(earthquakeJSON);
+            JSONObject baseJsonResponse = new JSONObject(topicJSON);
 
 
             JSONArray topicsArray = baseJsonResponse.getJSONArray("result");
 
             for (int i = 0; i < topicsArray.length(); i++) {
 
-                JSONObject currentEarthquake = topicsArray.getJSONObject(i);
+                JSONObject currentTopic = topicsArray.getJSONObject(i);
 
-                int id = currentEarthquake.getInt("id");
+                int id = currentTopic.getInt("id");
 
-                String interest = currentEarthquake.getString("interest");
+                String interest = currentTopic.getString("interest");
 
-                String url = currentEarthquake.getString("url");
+                String url = "http://zailet.com/" + currentTopic.getString("cover");
 
                 Topics topic = new Topics(id, interest, url);
 
